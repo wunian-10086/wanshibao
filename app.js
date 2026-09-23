@@ -525,7 +525,7 @@ function attachChartTools(root){
 function lineChart(canvas,labels,series,title,zeroBase,onLabelClick){
   if(!canvas||!canvas.clientWidth||!canvas.clientHeight)return;
   let ctx=canvas.getContext('2d'),w=canvas.width=canvas.clientWidth*devicePixelRatio,h=canvas.height=canvas.clientHeight*devicePixelRatio;
-  ctx.scale(devicePixelRatio,devicePixelRatio);w/=devicePixelRatio;h/=devicePixelRatio;ctx.clearRect(0,0,w,h);ctx.font='12px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,18);
+  ctx.scale(devicePixelRatio,devicePixelRatio);w/=devicePixelRatio;h/=devicePixelRatio;ctx.clearRect(0,0,w,h);ctx.font='13px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,18);
   let all=series.flatMap(x=>x.values).filter(v=>isFinite(v)),dmin=Math.min(...(all.length?all:[0])),dmax=Math.max(...(all.length?all:[1])),span=Math.max(1,dmax-dmin);
   let min=zeroBase?Math.min(0,dmin):dmin-span*0.2,max=zeroBase?Math.max(1,dmax*1.1):dmax+span*0.2;
   if(max<=min)max=min+1;
@@ -543,7 +543,7 @@ function lineChart(canvas,labels,series,title,zeroBase,onLabelClick){
   canvas.onmousemove=ev=>{if(!labels.length)return;let rect=canvas.getBoundingClientRect(),i=Math.max(0,Math.min(labels.length-1,Math.round((ev.clientX-rect.left-pad.l)/(rect.width-pad.l-pad.r)*Math.max(1,labels.length-1))));canvas.title=`${labels[i]}：${series.map(s=>`${s.name} ${s.values[i]??0}`).join('；')}`};
   canvas.onmouseleave=()=>canvas.title='';
   if(!labels.length){
-    ctx.fillStyle='#8b98a7';ctx.font='14px system-ui,"Microsoft YaHei",sans-serif';
+    ctx.fillStyle='#8b98a7';ctx.font='15px system-ui,"Microsoft YaHei",sans-serif';
     let msg='（未选择考试，图表为空）';ctx.fillText(msg,w/2-ctx.measureText(msg).width/2,h/2);
     canvas.onmousemove=null;canvas.onclick=null;canvas.style.cursor='default';canvas.title='';return;
   }
@@ -558,7 +558,7 @@ function histChart(canvas,values,title,onBinClick,opts){
   opts=opts||{};
   if(!canvas||!canvas.clientWidth||!values.length)return;
   let ctx=canvas.getContext('2d'),w=canvas.width=canvas.clientWidth*devicePixelRatio,h=canvas.height=canvas.clientHeight*devicePixelRatio;
-  ctx.scale(devicePixelRatio,devicePixelRatio);w/=devicePixelRatio;h/=devicePixelRatio;ctx.clearRect(0,0,w,h);ctx.font='12px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,18);
+  ctx.scale(devicePixelRatio,devicePixelRatio);w/=devicePixelRatio;h/=devicePixelRatio;ctx.clearRect(0,0,w,h);ctx.font='13px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,18);
   let lo=Math.floor(Math.min(...values)/10)*10,hi=Math.ceil(Math.max(...values)/10)*10;if(hi<=lo)hi=lo+10;
   let n=Math.max(1,Math.min(10,Math.round((hi-lo)/5))),bw=(hi-lo)/n,bins=new Array(n).fill(0);
   values.forEach(v=>{let i=Math.min(n-1,Math.max(0,Math.floor((v-lo)/bw)));bins[i]++});
@@ -1102,7 +1102,7 @@ function radarChart(canvas,labels,series,title,raws){
   if(!canvas||!canvas.clientWidth)return;
   const ctx=canvas.getContext('2d'),W=canvas.clientWidth,H=canvas.clientHeight;
   canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);
-  ctx.clearRect(0,0,W,H);ctx.font='13px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,20);
+  ctx.clearRect(0,0,W,H);ctx.font='14px system-ui,"Microsoft YaHei",sans-serif';ctx.fillStyle='#52606d';ctx.fillText(title,12,20);
   const n=labels.length;if(!n)return;
   const cx=W/2,cy=H/2+10,R=Math.min(W,H)/2-70,ang=i=>-Math.PI/2+i*2*Math.PI/n;
   ctx.strokeStyle='#e3e9f0';
@@ -1117,10 +1117,10 @@ function radarChart(canvas,labels,series,title,raws){
   labels.forEach((lb,i)=>{
     const a=ang(i),lx=cx+Math.cos(a)*(R+14),ly=cy+Math.sin(a)*(R+14);
     ctx.textAlign=(Math.abs(Math.cos(a))<0.3)?'center':(Math.cos(a)>0?'left':'right');
-    ctx.fillStyle='#16202c';ctx.font='13px system-ui,"Microsoft YaHei",sans-serif';ctx.fillText(lb,lx,ly+(Math.sin(a)>0.6?14:(Math.sin(a)<-0.6?-6:4)));
+    ctx.fillStyle='#16202c';ctx.font='14px system-ui,"Microsoft YaHei",sans-serif';ctx.fillText(lb,lx,ly+(Math.sin(a)>0.6?14:(Math.sin(a)<-0.6?-6:4)));
     if(raws){
       const t=raws.map(r=>(r[i]==null?'—':fmtN(r[i]))).join(' ／ ');
-      ctx.fillStyle=series[0].color;ctx.font='12px system-ui';ctx.fillText(t,lx,ly+(Math.sin(a)>0.6?30:(Math.sin(a)<-0.6?10:20)));
+      ctx.fillStyle=series[0].color;ctx.font='13px system-ui';ctx.fillText(t,lx,ly+(Math.sin(a)>0.6?30:(Math.sin(a)<-0.6?10:20)));
     }
     ctx.textAlign='left';
   });

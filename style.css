@@ -88,7 +88,8 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
-html{-webkit-text-size-adjust:100%}
+/* 整体字号：所有文字尺寸都用 rem，改这一个值就能把界面文字等比放大（16px→18px） */
+html{-webkit-text-size-adjust:100%;font-size:18px}
 body{
   margin:0;background:var(--mui-bg-default);color:var(--mui-text-primary);
   font:400 .875rem/1.6 "Roboto","Helvetica Neue","Segoe UI",system-ui,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
