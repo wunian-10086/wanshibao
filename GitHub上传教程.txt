@@ -1,0 +1,76 @@
+把“网页-上传这个”里的文件完整上传到 GitHub Pages —— 详细教程
+（全程在浏览器里点，不用安装任何软件，大约 10 分钟）
+
+=== 准备：注册 GitHub 账号（已有可跳过）===
+1. 打开 https://github.com → 右上角 Sign up
+2. 填邮箱 → 设密码 → 起用户名（英文，如 wang-teacher）
+   用户名会出现在网址里：https://用户名.github.io/库名/
+3. 邮箱验证码填入 → 完成
+
+=== 第 1 步：新建仓库 ===
+1. 右上角 “+” → New repository
+2. Repository name 填英文，如 class-score
+3. 选 Public（免费账号只有公开仓库能开 Pages）
+4. 下面的 “Add a README file” 等**都不要勾**
+5. 点绿色 Create repository
+
+=== 第 2 步：上传文件（最关键）===
+【重点】要传的是本文件夹“里面”的内容，不要把文件夹本身拖进去，
+       否则网址会多一层目录，打开就 404。
+
+1. 打开本文件夹，按 Ctrl+A 全选。应该有：
+     index.html
+     app.js
+     style.css
+     xlsx.full.min.js
+     initial-data.js
+     成绩表格模板         （文件夹，内含 6 个 Excel 模板）
+     .nojekyll            （空文件，别删）
+     GitHub上传教程.txt
+   看不到 .nojekyll 时：资源管理器 → 查看 → 勾选“文件扩展名 / 隐藏的项目”。
+2. 回到仓库页面，点蓝字 “uploading an existing file”
+   （或 Add file → Upload files）。
+3. 把全选的文件拖到虚线框里，等进度条走完。
+   确认列表里 index.html 是**直接的文件名**，不能是
+   “网页-上传这个/index.html”。
+4. 下方 Commit changes 可写“首次上传” → 点绿色 Commit changes。
+
+=== 第 3 步：开启 Pages（让仓库变成网站）===
+1. 仓库上方 Settings → 左侧 Pages
+2. Source 选 Deploy from a branch
+3. Branch 选 main，文件夹选 / (root) → Save
+4. 勾选 Enforce HTTPS
+5. 等 1~2 分钟刷新，顶部出现绿色提示：
+     Your site is live at https://用户名.github.io/class-score/
+   这个网址（结尾带 /）就是发给老师的。
+
+=== 第 4 步：自己先试一遍 ===
+1. 打开网址，出现登录页 → “第一次使用？创建一个本机账号”
+2. 填用户名/姓名/密码 → 创建 → 进入系统
+3. “成绩管理 → 下载导入模板”填两行 → “导入大考 Excel”试导一次
+4. 按 F5 刷新：仍保持登录、数据还在 = 成功
+
+=== 第 5 步：发给老师（可直接复制）===
+   班级综合素质评价系统，浏览器打开即可使用，不用安装任何东西：
+   https://用户名.github.io/class-score/
+   第一次点“第一次使用？创建一个本机账号”，用户名自己起，
+   密码自己设一个记得住的。以后打开网址登录就是自己的班级数据。
+   数据存在你自己电脑上；建议偶尔“数据管理 → 导出 JSON 备份”留个底。
+
+=== 常见问题 ===
+◇ 打开是 404：文件放进了子文件夹（把 index.html 放回仓库根目录）；或刚开 Pages 还没部署完（等 1~2 分钟）；或网址结尾漏了 /
+◇ 看到的是一堆文件列表：那是 github.com 的仓库页；网站域名是 github.io
+◇ 页面白屏：多半 style.css / app.js 没传全，回仓库首页看文件齐不齐，缺的补传
+◇ 改了程序老师还看旧版：GitHub 有约 10 分钟缓存，等一会或让老师 Ctrl+F5
+◇ 仓库公开会不会泄露成绩：不会。仓库里只有程序；名单和成绩都存在每位老师自己电脑上
+◇ 想让老师换电脑也同步：那就用项目里的“（可选）服务器账号版”，或让老师用导出/导入 JSON 备份搬家
+
+=== （可选）用 Git 命令行上传 ===
+  cd "网页-上传这个"
+  git init
+  git add -A
+  git commit -m "首次上传"
+  git branch -M main
+  git remote add origin https://github.com/用户名/class-score.git
+  git push -u origin main
+  然后按第 3 步开启 Pages。

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>班级综合素质评价</title>
+<link rel="stylesheet" href="style.css?v=1.2.9">
+</head>
+<body>
+<div id="login" hidden class="lock"><section class="login-panel">
+  <h1>班级综合素质评价</h1>
+  <p id="loginTip">正在连接…</p>
+  <input id="lgUser" placeholder="用户名" autocomplete="username">
+  <input id="lgPass" type="password" placeholder="密码" autocomplete="current-password">
+  <input id="lgName" placeholder="姓名（如：王老师）" hidden autocomplete="name">
+  <input id="lgInvite" placeholder="邀请码" hidden>
+  <button id="lgBtn" class="primary">登录</button>
+  <button id="lgToggle" class="link">第一次使用？创建一个本机账号</button>
+  <button id="lgForgot" class="link" hidden>忘记密码？</button>
+  <small id="lgFoot">用浏览器打开网页即可使用，不需要安装任何软件。</small>
+</section></div>
+
+<div id="app" hidden>
+  <header>
+    <strong>班级综合素质评价</strong>
+    <span id="className"></span>
+    <span id="userBox"></span>
+    <button id="navBack" title="回到上一页（Alt + ←）">← 上一页</button>
+    <button id="navFwd" title="回到下一页（Alt + →）">下一页 →</button>
+    <select id="classSwitch" title="切换班级"></select>
+    <select id="termSwitch" title="切换学期 / 查看历史学期"></select>
+    <span id="syncState"></span>
+    <button id="logoutBtn" hidden>退出</button>
+  </header>
+  <nav id="nav">
+    <button data-nav="0">小组分类</button>
+    <button data-nav="1">量化考核</button>
+    <button data-nav="2">成绩管理</button>
+    <button data-nav="3">数据管理</button>
+  </nav>
+  <main id="main"></main>
+  <div id="toast"></div>
+</div>
+<input id="fileInput" type="file" hidden>
+<script src="xlsx.full.min.js"></script>
+<script src="initial-data.js"></script>
+<script src="app.js?v=1.2.9"></script>
+</body></html>
