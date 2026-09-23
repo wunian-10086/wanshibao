@@ -1,198 +1,716 @@
-/* ===== 班级综合素质评价 · 统一界面样式 ===== */
+/* =======================================================================
+   班级综合素质评价 · MUI 主题层（Material UI 设计语言）
+   -----------------------------------------------------------------------
+   这套样式按 MUI（Material UI）v5 默认主题的令牌重写了整个界面：
+   · 调色板  palette.primary / secondary / error / warning / info / success
+   · 排版    Roboto + Material 字阶（1.125rem 标题 / .875rem 正文 / .75rem 说明）
+   · 阴影    elevation 1~24（与 MUI 源码一致的三层投影）
+   · 组件    AppBar、Tabs、Paper(Card)、Button(contained/outlined/text)、
+             TextField(outlined)、Chip、Table、Dialog、Snackbar、Alert、Tooltip 形态
+   所有原有的 class 名都保持不变，app.js 的逻辑完全不用改。
+   ======================================================================= */
+
 :root{
-  --blue:#1f6feb;--blue-d:#1a5fd0;--blue-soft:#eaf2ff;
-  --ink:#16202c;--ink-2:#5b6b7c;--ink-3:#8b98a7;
-  --line:#e3e9f0;--line-2:#eef2f7;--bg:#f2f5f9;--card:#fff;
-  --red:#d64545;--red-soft:#fdeeee;--green:#1f9d55;--green-soft:#eaf7f0;
-  --amber:#b7791f;--amber-soft:#fff8e6;
-  --r:12px;--r-s:8px;--sh:0 1px 2px rgba(16,42,67,.06),0 6px 18px rgba(16,42,67,.05);
-  --sh-s:0 1px 2px rgba(16,42,67,.06);
+  /* ---- MUI palette（light） ---- */
+  --mui-primary-main:#1976d2;
+  --mui-primary-dark:#1565c0;
+  --mui-primary-light:#42a5f5;
+  --mui-primary-contrast:#ffffff;
+  --mui-secondary-main:#9c27b0;
+  --mui-error-main:#d32f2f;
+  --mui-warning-main:#ed6c02;
+  --mui-info-main:#0288d1;
+  --mui-success-main:#2e7d32;
+
+  --mui-text-primary:rgba(0,0,0,.87);
+  --mui-text-secondary:rgba(0,0,0,.60);
+  --mui-text-disabled:rgba(0,0,0,.38);
+  --mui-divider:rgba(0,0,0,.12);
+  --mui-divider-soft:rgba(0,0,0,.06);
+
+  /* action 层（半透明叠加色，MUI action.*） */
+  --mui-action-hover:rgba(0,0,0,.04);
+  --mui-action-selected:rgba(0,0,0,.08);
+  --mui-action-hover-solid:#f5f5f5;      /* 4% 黑叠在白纸上 */
+  --mui-action-selected-solid:#ebebeb;
+  --mui-primary-hover:rgba(25,118,210,.04);
+  --mui-primary-selected:rgba(25,118,210,.08);
+  --mui-primary-soft:rgba(25,118,210,.12);
+
+  --mui-bg-default:#f4f6f8;
+  --mui-paper:#ffffff;
+
+  /* ---- shape ---- */
+  --mui-radius-xs:4px;
+  --mui-radius-sm:8px;
+  --mui-radius:12px;
+  --mui-radius-lg:16px;
+  --mui-radius-pill:999px;
+
+  /* ---- elevation（MUI v5 阴影表） ---- */
+  --mui-elev-1:0 2px 1px -1px rgba(0,0,0,.20),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12);
+  --mui-elev-2:0 3px 1px -2px rgba(0,0,0,.20),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  --mui-elev-3:0 3px 3px -2px rgba(0,0,0,.20),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);
+  --mui-elev-4:0 2px 4px -1px rgba(0,0,0,.20),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+  --mui-elev-6:0 3px 5px -1px rgba(0,0,0,.20),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+  --mui-elev-8:0 5px 5px -3px rgba(0,0,0,.20),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);
+  --mui-elev-24:0 11px 15px -7px rgba(0,0,0,.20),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);
+
+  /* 动效曲线（MUI easing.standard / emphasized） */
+  --mui-ease:cubic-bezier(.4,0,.2,1);
+  --mui-ease-emphasized:cubic-bezier(.4,0,.2,1);
+  /* AppBar 实际高度，由 mui-enhance.js 用量出来的值刷新 */
+  --appbar-h:64px;
+
+  /* Material 图标（data URI，避免额外网络请求） */
+  --mui-icon-info:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E");
+  --mui-icon-warning:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/%3E%3C/svg%3E");
+  --mui-icon-school:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z'/%3E%3C/svg%3E");
+  --mui-icon-person:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  --mui-icon-search:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' fill-opacity='0.54' d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+  --mui-icon-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' fill-opacity='0.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2,h3{margin:0;line-height:1.35}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--mui-bg-default);color:var(--mui-text-primary);
+  font:400 .875rem/1.6 "Roboto","Helvetica Neue","Segoe UI",system-ui,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+h1,h2,h3{margin:0;line-height:1.35;font-weight:500}
 p{margin:0 0 8px}
-a{color:var(--blue)}
+a{color:var(--mui-primary-main);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:rgba(25,118,210,.22)}
 
-/* 顶栏 */
-header{position:sticky;top:0;z-index:8;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  min-height:60px;padding:10px 20px;background:linear-gradient(180deg,#1f6feb,#1a63d6);color:#fff;box-shadow:var(--sh)}
-header strong{font-size:17px;letter-spacing:.3px;color:#fff;margin-right:2px}
-header #className{font-size:12px;color:#dbe8ff;background:rgba(255,255,255,.14);padding:2px 8px;border-radius:999px}
-header #userBox{font-size:12px;color:#dbe8ff}
-header #syncState{margin-left:auto;font-size:12px;color:#dbe8ff;white-space:nowrap}
-header select{margin-left:0;background:rgba(255,255,255,.96);border-color:transparent;color:var(--ink);font-size:13px;padding:7px 10px}
-header #logoutBtn{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.4);padding:7px 12px}
-header #logoutBtn:hover{background:rgba(255,255,255,.28)}
-header #navBack,header #navFwd{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35);padding:6px 11px;font-size:12.5px}
-header #navBack:hover,header #navFwd:hover{background:rgba(255,255,255,.26)}
-header #navBack:disabled,header #navFwd:disabled{opacity:.45;cursor:default;background:rgba(255,255,255,.08)}
+/* hidden 属性优先于本文件的 display 声明（否则 button{display:flex} 会顶掉 [hidden]） */
+[hidden]{display:none!important}
 
-/* 导航 */
-nav{position:sticky;top:60px;z-index:7;display:flex;gap:6px;padding:10px 18px;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
-nav button{border:1px solid transparent;background:transparent;color:var(--ink-2);padding:7px 13px;border-radius:999px;white-space:nowrap;font-size:13.5px}
-nav button:hover{background:var(--line-2);color:var(--ink)}
-nav .active{background:var(--blue-soft);color:var(--blue-d);font-weight:600;border-color:#cfe0ff}
+/* 通用聚焦环（MUI 用 2px primary 轮廓） */
+:focus-visible{outline:2px solid var(--mui-primary-main);outline-offset:2px}
 
-/* 布局 */
-main{max-width:1400px;margin:18px auto 40px;padding:0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;box-shadow:var(--sh-s)}
+/* =======================================================================
+   1. AppBar（顶栏）
+   ======================================================================= */
+header{
+  position:sticky;top:0;z-index:1100;
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;
+  min-height:64px;padding:8px 20px;
+  background:var(--mui-primary-main);color:var(--mui-primary-contrast);
+  box-shadow:var(--mui-elev-4);
+  transition:box-shadow .2s var(--mui-ease),background-color .2s var(--mui-ease);
+}
+header.scrolled{box-shadow:var(--mui-elev-6)}
+/* 在“标题行”之后强制换行，让控件自成第二行（MUI 双层 AppBar 的感觉） */
+header::after{content:'';order:6;flex:0 0 100%;height:0}
+
+header strong{
+  order:1;display:inline-flex;align-items:center;gap:10px;
+  font-size:1.125rem;font-weight:500;letter-spacing:.01em;color:#fff;
+}
+header strong::before{
+  content:'';width:22px;height:22px;background:currentColor;
+  -webkit-mask:var(--mui-icon-school) center/contain no-repeat;
+  mask:var(--mui-icon-school) center/contain no-repeat;
+}
+header #className{
+  order:2;display:inline-flex;align-items:center;max-width:38vw;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  padding:3px 10px;border-radius:var(--mui-radius-pill);
+  background:rgba(255,255,255,.16);color:#fff;font-size:.75rem;line-height:1.6;
+}
+header #userBox{
+  order:3;display:inline-flex;align-items:center;gap:6px;
+  font-size:.8125rem;color:rgba(255,255,255,.88);
+}
+header #userBox::before{
+  content:'';width:16px;height:16px;background:currentColor;
+  -webkit-mask:var(--mui-icon-person) center/contain no-repeat;
+  mask:var(--mui-icon-person) center/contain no-repeat;
+}
+header #userBox:empty{display:none}
+header #syncState{order:4;margin-left:auto;font-size:.75rem;color:rgba(255,255,255,.85);white-space:nowrap}
+header #logoutBtn{order:5}
+header #navBack{order:7}
+header #navFwd{order:8}
+header #classSwitch{order:9}
+header #termSwitch{order:10}
+header #navUsers{order:11}
+
+/* AppBar 里的按钮：白色描边 / 文字型（MUI Button color="inherit"） */
+header button{
+  min-height:34px;padding:5px 12px;font-size:.8125rem;
+  color:#fff;background:transparent;border:1px solid rgba(255,255,255,.5);
+}
+header button:hover{background:rgba(255,255,255,.14);border-color:#fff;color:#fff}
+header button:active{background:rgba(255,255,255,.22)}
+header button:disabled{color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.22);background:transparent}
+header select{
+  width:auto;max-width:min(320px,44vw);min-height:34px;padding:5px 30px 5px 10px;font-size:.8125rem;
+  background-color:#fff;border:1px solid transparent;border-radius:var(--mui-radius-xs);
+}
+header select:hover{border-color:rgba(255,255,255,.6)}
+
+/* =======================================================================
+   2. Tabs（主导航 + 子标签）
+   ======================================================================= */
+nav{
+  position:sticky;top:var(--appbar-h,64px);z-index:1000;
+  display:flex;gap:2px;padding:0 16px;overflow-x:auto;
+  background:var(--mui-paper);border-bottom:1px solid var(--mui-divider);
+  box-shadow:var(--mui-elev-1);scrollbar-width:none;
+}
+nav::-webkit-scrollbar{height:0}
+nav button{
+  position:relative;overflow:hidden;flex:0 0 auto;
+  min-height:48px;padding:0 16px;border:0;border-radius:0;background:transparent;
+  color:var(--mui-text-secondary);font-size:.875rem;font-weight:500;
+  transition:background-color .15s var(--mui-ease),color .15s var(--mui-ease);
+}
+nav button:hover{background:var(--mui-primary-hover);color:var(--mui-text-primary)}
+nav button.active{color:var(--mui-primary-main);font-weight:600}
+nav button.active::after{
+  content:'';position:absolute;left:12px;right:12px;bottom:0;height:2px;
+  border-radius:2px 2px 0 0;background:var(--mui-primary-main);
+}
+
+.tabs{display:flex;gap:4px;margin-right:auto;flex-wrap:wrap}
+.tabs button{
+  min-height:32px;padding:5px 12px;border:0;background:transparent;
+  color:var(--mui-text-secondary);font-size:.8125rem;border-radius:var(--mui-radius-xs);
+}
+.tabs button:hover{background:var(--mui-action-hover);color:var(--mui-text-primary)}
+.tabs button.active{
+  background:var(--mui-primary-soft);color:var(--mui-primary-dark);font-weight:600;
+}
+
+/* =======================================================================
+   3. 布局与 Paper(Card)
+   ======================================================================= */
+main{max-width:1440px;margin:20px auto 48px;padding:0 20px}
+.card{
+  background:var(--mui-paper);border-radius:var(--mui-radius);
+  padding:20px 24px;margin-bottom:16px;box-shadow:var(--mui-elev-1);
+}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:12px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-.toolbar h2{font-size:19px;margin-right:auto}
-.field{display:grid;gap:6px}
-.field label{font-size:12px;color:var(--ink-2)}
-.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
-.filters label{color:var(--ink-2);font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.widecards{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 
-/* 控件 */
-button,input,select,textarea{font:inherit;padding:9px 12px;border:1px solid #cfdae6;border-radius:var(--r-s);background:#fff;color:var(--ink);transition:.15s}
-button{cursor:pointer;color:var(--ink-2);background:#fff}
-button:hover{border-color:#b9cbe0;background:#f7fafd;color:var(--blue-d)}
-button:active{transform:translateY(1px)}
-input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid #bcd6ff;outline-offset:1px}
-.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
-.primary:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
-.danger{color:var(--red);border-color:#f0c6c6;background:var(--red-soft)}
-.danger:hover{background:#fbe0e0;color:var(--red)}
-.link{border:0;background:transparent;text-decoration:underline;color:var(--blue);padding:6px 4px}
-.linkbtn{border:0;background:transparent;padding:0;color:var(--blue-d);text-decoration:underline}
-.lbl{color:var(--ink-2);font-size:13px}
-.mini{display:block;font-weight:400;color:var(--ink-3);font-size:11px;line-height:1.3}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+.card>.toolbar:not(.mfoot){padding-bottom:14px;border-bottom:1px solid var(--mui-divider)}
+.toolbar h2{font-size:1.125rem;font-weight:600;margin-right:auto;color:var(--mui-text-primary)}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0}
+.filters label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.8125rem;color:var(--mui-text-secondary);
+}
 
-/* 标签页 / 标签块 */
-.tabs{display:flex;gap:6px;margin-right:auto;flex-wrap:wrap}
-.tabs button{border-radius:var(--r-s);background:#f4f7fb}
-.tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 6px}
-.chip{border-radius:999px;padding:7px 15px;background:#f4f7fb;border-color:#e2e9f2;font-size:13px}
-.chip.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
-.tag{font-size:11px;padding:1px 8px;border-radius:999px;background:var(--blue-soft);color:var(--blue-d);white-space:nowrap;margin-right:4px}
-.tag.quiz{background:#fff3e0;color:#a35b00}
-.hint{color:var(--ink-2);font-size:13px;background:#f7fafd;border-left:3px solid var(--blue);padding:9px 13px;border-radius:6px;margin:10px 0}
+/* TextField（outlined）：标签在上、输入框 1px 描边、聚焦 2px primary */
+.field{display:grid;gap:6px;min-width:0}
+.field>label{font-size:.75rem;font-weight:500;color:var(--mui-text-secondary);line-height:1.4}
+.lbl{color:var(--mui-text-secondary);font-size:.8125rem}
+.mini{display:block;font-weight:400;color:var(--mui-text-secondary);font-size:.75rem;line-height:1.5}
 
-/* 表格 */
-table{width:100%;border-collapse:collapse;min-width:720px;font-size:13.5px}
-th,td{padding:10px 11px;border-bottom:1px solid var(--line-2);text-align:left;vertical-align:middle}
-th{color:var(--ink-2);background:#f7fafd;font-weight:600;position:sticky;top:0;z-index:1;white-space:nowrap}
-tbody tr:nth-child(even){background:#fcfdff}
-tbody tr:hover{background:#f5f9ff}
-tfoot th,tfoot td{background:#eef4fb;font-weight:600}
-th.clickable{cursor:pointer;color:var(--blue-d)}
-th.clickable:hover{background:#e8f1ff}
+/* =======================================================================
+   4. 控件：Button / TextField / Checkbox
+   ======================================================================= */
+button,input,select,textarea{
+  font-family:inherit;font-size:.875rem;color:var(--mui-text-primary);
+}
+button{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:36px;padding:6px 14px;border:0;border-radius:var(--mui-radius-xs);
+  background:transparent;color:var(--mui-primary-main);font-weight:500;letter-spacing:.01em;
+  cursor:pointer;white-space:nowrap;
+  transition:background-color .15s var(--mui-ease),box-shadow .15s var(--mui-ease),border-color .15s var(--mui-ease),color .15s var(--mui-ease);
+  -webkit-tap-highlight-color:transparent;
+}
+button:hover{background:var(--mui-primary-hover)}
+button:active{background:var(--mui-primary-selected)}
+button:disabled{color:var(--mui-text-disabled);background:transparent;cursor:not-allowed}
+
+/* contained：主操作 */
+.primary{
+  background:var(--mui-primary-main);color:var(--mui-primary-contrast);
+  box-shadow:var(--mui-elev-2);padding:6px 16px;
+}
+.primary:hover{background:var(--mui-primary-dark);box-shadow:var(--mui-elev-4)}
+.primary:active{background:var(--mui-primary-dark);box-shadow:var(--mui-elev-8)}
+.primary:disabled{background:rgba(0,0,0,.12);color:var(--mui-text-disabled);box-shadow:none}
+/* 危险操作的确认按钮：mui-enhance.js 会给“二次确认”弹窗的确定键加上 .mui-danger */
+.primary.mui-danger{background:var(--mui-error-main)}
+.primary.mui-danger:hover{background:#c62828}
+.primary.mui-danger:active{background:#b71c1c}
+
+/* outlined error：危险操作 */
+.danger{
+  background:transparent;color:var(--mui-error-main);
+  border:1px solid rgba(211,47,47,.5);
+}
+.danger:hover{background:rgba(211,47,47,.04);border-color:var(--mui-error-main)}
+.danger:active{background:rgba(211,47,47,.1)}
+
+/* text：链接式按钮 */
+.link,.linkbtn{
+  border:0;background:transparent;color:var(--mui-primary-main);
+  padding:6px 8px;min-height:32px;text-decoration:none;font-weight:500;
+}
+.link:hover,.linkbtn:hover{background:var(--mui-primary-hover);text-decoration:none}
+.linkbtn{padding:0;min-height:0;text-decoration:underline}
+.linkbtn:hover{background:transparent;text-decoration:underline}
+
+input,select,textarea{
+  min-height:40px;padding:9px 12px;
+  background:var(--mui-paper);border:1px solid rgba(0,0,0,.23);
+  border-radius:var(--mui-radius-xs);
+  transition:border-color .15s var(--mui-ease),box-shadow .15s var(--mui-ease),background-color .15s var(--mui-ease);
+}
+/* 表单栅格/弹窗里的输入框撑满整格；表格、工具栏里的按内容或内联宽度走 */
+.field input,.field select,.field textarea,.login-panel input{width:100%}
+input:hover:not(:disabled),select:hover:not(:disabled),textarea:hover:not(:disabled){border-color:var(--mui-text-primary)}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--mui-primary-main);
+  box-shadow:inset 0 0 0 1px var(--mui-primary-main);
+}
+input:disabled,select:disabled,textarea:disabled{
+  color:var(--mui-text-disabled);background:rgba(0,0,0,.04);border-color:var(--mui-divider);
+}
+input::placeholder,textarea::placeholder{color:var(--mui-text-disabled)}
+textarea{min-height:88px;resize:vertical}
+
+/* 原生 select 换成 Material 箭头 */
+select{
+  appearance:none;-webkit-appearance:none;padding-right:34px;
+  background-image:var(--mui-icon-chevron);
+  background-repeat:no-repeat;background-position:right 8px center;background-size:20px 20px;
+}
+select[multiple]{padding-right:12px;background-image:none;min-height:120px}
+
+/* 日期框保留系统图标，只调一下透明度 */
+input[type=date]{padding-right:8px}
+input[type=date]::-webkit-calendar-picker-indicator{opacity:.55;cursor:pointer}
+input[type=date]::-webkit-calendar-picker-indicator:hover{opacity:.87}
+
+input[type=checkbox],input[type=radio]{
+  width:18px;height:18px;min-height:0;padding:0;margin:0;
+  accent-color:var(--mui-primary-main);border-radius:2px;
+  vertical-align:-3px;cursor:pointer;box-shadow:none;
+}
+
+/* 工具栏里的搜索框：Material 放大镜 */
+.toolbar input[placeholder*="搜索"],#personSearch{
+  padding-left:36px;
+  background-image:var(--mui-icon-search);
+  background-repeat:no-repeat;background-position:10px 50%;background-size:18px 18px;
+}
+.toolbar input,.toolbar select{min-height:38px;padding-top:8px;padding-bottom:8px;font-size:.8125rem}
+.toolbar input[placeholder*="搜索"],.toolbar #personSearch{padding-left:36px}
+.toolbar input[placeholder*="搜索"],.toolbar #personSearch{width:240px;max-width:100%}
+
+/* 点击水波纹（MUI TouchRipple 效果，由 mui-enhance.js 注入） */
+.mui-ripple{
+  position:absolute;border-radius:50%;background:currentColor;opacity:.26;
+  transform:scale(0);pointer-events:none;z-index:0;
+  animation:mui-ripple .6s var(--mui-ease) forwards;
+}
+@keyframes mui-ripple{to{transform:scale(2.4);opacity:0}}
+
+/* =======================================================================
+   5. Chip / Tag / 状态
+   ======================================================================= */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  min-height:32px;padding:0 14px;border-radius:var(--mui-radius-pill);
+  border:1px solid rgba(0,0,0,.16);background:var(--mui-paper);
+  color:var(--mui-text-secondary);font-size:.8125rem;font-weight:400;
+}
+.chip:hover{background:var(--mui-action-hover);color:var(--mui-text-primary);border-color:rgba(0,0,0,.24)}
+.chip.active{
+  background:var(--mui-primary-main);border-color:var(--mui-primary-main);
+  color:#fff;font-weight:600;box-shadow:var(--mui-elev-2);
+}
+.chip.active:hover{background:var(--mui-primary-dark)}
+.tag{
+  display:inline-flex;align-items:center;height:22px;padding:0 8px;margin-right:6px;
+  border-radius:var(--mui-radius-xs);background:var(--mui-primary-soft);
+  color:var(--mui-primary-dark);font-size:.6875rem;font-weight:500;white-space:nowrap;
+}
+.tag.quiz{background:rgba(237,108,2,.12);color:#a54800}
+.positive{color:var(--mui-success-main);font-weight:600}
+.negative{color:var(--mui-error-main);font-weight:600}
+.rank{font-weight:600;color:var(--mui-text-primary)}
+.zoom{color:var(--mui-primary-main);font-size:.6875rem}
+.empty{color:var(--mui-text-secondary);padding:40px 20px;text-align:center;font-size:.875rem}
+
+/* =======================================================================
+   6. Alert（.hint / .banner）
+   ======================================================================= */
+.hint,.banner{
+  padding:12px 16px;border-radius:var(--mui-radius-sm);margin:12px 0;
+  font-size:.8125rem;line-height:1.7;border-left:4px solid transparent;
+}
+/* 提示框用“块级 + 绝对定位图标”，这样里面的整段文字仍然是正常流，不会被拆散 */
+.hint{
+  position:relative;padding-left:46px;
+  background:#e5f4fd;color:#014361;border-left-color:var(--mui-info-main);
+}
+.hint::before{
+  content:'';position:absolute;left:14px;top:13px;width:18px;height:18px;background:currentColor;
+  -webkit-mask:var(--mui-icon-info) center/contain no-repeat;
+  mask:var(--mui-icon-info) center/contain no-repeat;
+}
+.banner{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  background:#fff4e5;color:#663c00;border-left-color:var(--mui-warning-main);
+}
+.banner::before{
+  content:'';flex:0 0 auto;width:18px;height:18px;background:currentColor;
+  -webkit-mask:var(--mui-icon-warning) center/contain no-repeat;
+  mask:var(--mui-icon-warning) center/contain no-repeat;
+}
+.banner b{font-weight:600}
+.banner button{
+  border:1px solid rgba(102,60,0,.35);color:#663c00;background:transparent;
+  min-height:30px;padding:3px 10px;font-size:.75rem;
+}
+.banner button:hover{background:rgba(102,60,0,.08);border-color:rgba(102,60,0,.5)}
+
+/* =======================================================================
+   7. Table（MUI Table：sticky 表头 + 首列固定）
+   ======================================================================= */
+.table-wrap{
+  overflow:auto;max-height:620px;background:var(--mui-paper);
+  border:1px solid var(--mui-divider);border-radius:var(--mui-radius-sm);
+  scrollbar-width:thin;
+}
+.table-wrap::-webkit-scrollbar{width:10px;height:10px}
+.table-wrap::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.22);border-radius:8px;border:2px solid transparent;background-clip:content-box;
+}
+.table-wrap::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.34);background-clip:content-box}
+
+table{
+  width:100%;min-width:720px;border-collapse:separate;border-spacing:0;
+  font-size:.875rem;
+}
+th,td{padding:12px 14px;text-align:left;vertical-align:middle}
+th{
+  position:sticky;top:0;z-index:2;background:var(--mui-paper);
+  color:var(--mui-text-secondary);font-weight:600;white-space:nowrap;
+  border-bottom:1px solid var(--mui-divider);
+}
+td{border-bottom:1px solid var(--mui-divider-soft)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr{transition:background-color .12s var(--mui-ease)}
+tbody tr:hover td{background:var(--mui-action-hover-solid)}
+/* 首列固定在左侧：宽表在手机/小窗口下也能看清“这是谁” */
+th:first-child,td:first-child{position:sticky;left:0;z-index:1;background:var(--mui-paper)}
+thead th:first-child{z-index:3}
+tbody tr:hover td:first-child{background:var(--mui-action-hover-solid)}
+td:first-child,th:first-child{box-shadow:inset -1px 0 0 var(--mui-divider-soft)}
+
+tfoot th,tfoot td{background:#fafafa;font-weight:600;border-top:1px solid var(--mui-divider);border-bottom:0}
+th.clickable{cursor:pointer;color:var(--mui-primary-main)}
+th.clickable:hover{background:var(--mui-primary-hover)}
 td.actions{white-space:nowrap}
-td.actions button{margin-right:4px;padding:6px 10px;font-size:12.5px}
-.table-wrap{overflow:auto;max-height:620px;border:1px solid var(--line);border-radius:var(--r-s);background:#fff}
-.rank{font-weight:700;color:var(--ink)}
+td.actions button{margin-right:4px;min-height:30px;padding:3px 8px;font-size:.8125rem}
+/* 表格里的“删除/移出”做成文字按钮，不要每个格子都套一个红框 */
+td.actions button.danger,
+td button.danger,
+td button[onclick*="Remove"],
+td button[onclick*="Delete"],
+td button[onclick*="remove"]{
+  border:0;background:transparent;color:var(--mui-error-main);
+  min-height:30px;padding:3px 8px;font-size:.8125rem;
+}
+td.actions button.danger:hover,
+td button.danger:hover,
+td button[onclick*="Remove"]:hover,
+td button[onclick*="Delete"]:hover,
+td button[onclick*="remove"]:hover{background:rgba(211,47,47,.08)}
+td .score,td input.score{width:88px;min-height:36px;padding:6px 8px;text-align:center}
+input.fullIn{text-align:center}
+td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
+
+/* 矩阵表（点格子看详情） */
 .matrix td.cell{cursor:pointer;text-align:center}
-.matrix td.cell.up{color:var(--green);font-weight:600}
-.matrix td.cell.down{color:var(--red)}
-.matrix td.cell:hover{background:var(--blue-soft)}
-.matrix th.focusCol{background:#dce9ff}
-.zoom{color:var(--blue);font-size:11px}
-.empty{color:var(--ink-3);padding:32px;text-align:center}
+.matrix td.cell.up{color:var(--mui-success-main);font-weight:600}
+.matrix td.cell.down{color:var(--mui-error-main)}
+.matrix td.cell:hover{background:var(--mui-primary-soft)}
+.matrix th.focusCol{background:var(--mui-primary-soft)}
 
-/* 图表 */
-.chart{width:100%;height:290px;border:1px solid var(--line);border-radius:var(--r-s);background:#fff;display:block}
+/* =======================================================================
+   8. 图表
+   ======================================================================= */
+.chart{
+  width:100%;height:290px;display:block;background:var(--mui-paper);
+  border:1px solid var(--mui-divider);border-radius:var(--mui-radius-sm);
+}
 .chart-wrap{position:relative;margin:6px 0 4px}
-.chart-tools{display:flex;gap:6px;justify-content:flex-end;margin:6px 0 0}
-.chart-tools button{padding:5px 10px;font-size:12px}
-.chartbox{background:#fff;border:1px solid var(--line);border-radius:var(--r-s);padding:8px}
-.chart-title{font-size:13px;color:var(--ink-2);margin:2px 0 6px}
-.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--ink-2);font-size:12px;margin:4px 0}
+.chart-tools{display:flex;gap:6px;justify-content:flex-end;margin:8px 0 0}
+.chart-tools button{min-height:30px;padding:4px 10px;font-size:.75rem}
+.chartbox{
+  background:var(--mui-paper);border:1px solid var(--mui-divider);
+  border-radius:var(--mui-radius-sm);padding:8px;
+}
+.chart-title{font-size:.8125rem;color:var(--mui-text-secondary);margin:2px 0 6px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--mui-text-secondary);font-size:.75rem;margin:4px 0}
+#chartControls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+#chartControls>span:first-child{font-size:.8125rem;color:var(--mui-text-secondary)}
+#subjectToggles{display:flex;flex-wrap:wrap;gap:8px 16px}
+#subjectToggles label{display:inline-flex;align-items:center;gap:6px;font-size:.8125rem;color:var(--mui-text-secondary);cursor:pointer}
+#personCharts{border-radius:var(--mui-radius-sm)}
 
-/* 统计卡 / 榜单 */
-.stat{background:#fbfdff;border:1px solid var(--line);border-radius:var(--r-s);padding:13px 14px}
-.stat>span{display:block;color:var(--ink-2);font-size:12px}
-.stat>b{display:block;font-size:19px;color:var(--blue-d);margin-top:2px}
-.stat-row{display:flex;gap:18px;flex-wrap:wrap;background:#fbfdff;border:1px solid var(--line);border-radius:var(--r-s);padding:11px 14px;margin-bottom:12px}
-.stat-row b{color:var(--blue-d)}
+/* =======================================================================
+   9. 统计卡 / 榜单
+   ======================================================================= */
+.stat{
+  background:var(--mui-paper);border:1px solid var(--mui-divider);
+  border-radius:var(--mui-radius-sm);padding:14px 16px;
+}
+.stat>span{display:block;color:var(--mui-text-secondary);font-size:.75rem}
+.stat>b{display:block;font-size:1.5rem;font-weight:600;color:var(--mui-primary-main);margin-top:2px;line-height:1.3}
+.stat h3{font-size:1rem}
+.stat-row{
+  display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px;
+  background:#fafafa;border:1px solid var(--mui-divider);
+  border-radius:var(--mui-radius-sm);padding:12px 16px;
+}
+.stat-row b{color:var(--mui-primary-dark)}
 .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.podium article{padding:20px 14px;text-align:center;border-radius:var(--r);background:#fbfdff;border:1px solid var(--line)}
-.podium h3{font-size:16px;margin:6px 0 2px}
-.gold{background:#fffaea!important;border-color:#f2e0a8!important}
-.silver{background:#f7f9fa!important;border-color:#dfe5ea!important}
-.bronze{background:#fff6ee!important;border-color:#f0dcc6!important}
-.positive{color:var(--green);font-weight:600}
-.negative{color:var(--red);font-weight:600}
-.banner{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;line-height:1.7;
-  background:var(--amber-soft);border:1px solid #f2dfae;color:#7a5b12;padding:10px 14px;border-radius:var(--r-s);margin:0 0 14px}
-.banner button{border-color:#e6cf94;background:#fffdf6}
+.podium article{
+  padding:18px 14px;text-align:center;border-radius:var(--mui-radius);
+  background:var(--mui-paper);border:1px solid var(--mui-divider);
+  box-shadow:var(--mui-elev-1);transition:box-shadow .2s var(--mui-ease),transform .2s var(--mui-ease);
+}
+.podium article:hover{box-shadow:var(--mui-elev-4);transform:translateY(-2px)}
+.podium h3{font-size:1.0625rem;font-weight:600;margin:6px 0 2px}
+.podium article>span{font-size:.8125rem;line-height:1.5}
+.stat.gold,.podium article.gold{background:#fffbeb;border-color:#f2e2ad}
+.stat.silver,.podium article.silver{background:#fafafa;border-color:#e0e0e0}
+.stat.bronze,.podium article.bronze{background:#fdf6f0;border-color:#f0dcc6}
 
-/* 登录 */
-.lock{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:linear-gradient(135deg,#14509e,#2b86d8)}
-.lock-card,.login-panel{width:min(420px,92vw);background:#fff;border-radius:16px;padding:28px;display:grid;gap:12px;box-shadow:0 20px 50px rgba(8,30,58,.28)}
-.login-panel h1{font-size:21px}
-.login-panel p{color:var(--ink-2);font-size:13px}
-.login-panel small{color:var(--ink-3);font-size:12px;line-height:1.7}
-.login-panel input,.login-panel button{width:100%}
+/* =======================================================================
+   10. 小组卡片（手风琴 + 成员列表）
+   ======================================================================= */
+.cgroup{
+  margin:10px 0;background:var(--mui-paper);overflow:hidden;
+  border:1px solid var(--mui-divider);border-radius:var(--mui-radius-sm);
+}
+.chead{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  background:#fafafa;cursor:pointer;user-select:none;
+  transition:background-color .15s var(--mui-ease);
+}
+.chead:hover{background:var(--mui-action-hover-solid)}
+.chead b{font-size:.875rem;font-weight:600;color:var(--mui-text-primary)}
+.chead .cbtns{margin-left:auto;display:flex;gap:6px}
+.chead .cbtns button{min-height:30px;padding:3px 10px;font-size:.75rem}
+.cbody{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--mui-divider-soft)}
+
+.gcard{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.ghead{
+  padding:16px;border-bottom:1px solid var(--mui-divider);
+  background:linear-gradient(180deg,#fafcff,#fff);
+}
+.ghead>span{display:block;color:var(--mui-text-secondary);font-size:.75rem}
+.ghead>b{display:block;font-size:1.0625rem;font-weight:600;color:var(--mui-primary-dark);margin-top:2px}
+.memberlist{flex:1;max-height:300px;overflow:auto;padding:4px 0}
+.member{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:8px 16px;border-bottom:1px solid var(--mui-divider-soft);
+  transition:background-color .15s var(--mui-ease);
+}
+.member:last-child{border-bottom:0}
+.member:hover{background:var(--mui-action-hover)}
+.member .mname{font-size:.875rem}
+.member button{
+  border:0;background:transparent;color:var(--mui-error-main);
+  min-height:28px;padding:2px 8px;font-size:.75rem;
+}
+.member button:hover{background:rgba(211,47,47,.08)}
+.empty-member{color:var(--mui-text-secondary);font-size:.8125rem}
+.gcard .filters{padding:0 16px;margin:10px 0}
+.gcard .filters select{flex:1;min-width:0}
+.gfoot{
+  display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;
+  border-top:1px solid var(--mui-divider);background:#fcfcfc;
+}
+/* 小组卡片里的“删除”也按危险操作着色 */
+.gfoot button[onclick*="groupDelete"],
+.filters button[onclick*="groupDelete"],
+.gfoot button[onclick*="delete"]{color:var(--mui-error-main)}
+.gfoot button[onclick*="groupDelete"]:hover,
+.filters button[onclick*="groupDelete"]:hover,
+.gfoot button[onclick*="delete"]:hover{background:rgba(211,47,47,.08)}
+
+/* =======================================================================
+   11. 登录页
+   ======================================================================= */
+.lock{
+  position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;
+  background:
+    radial-gradient(1100px 520px at 12% 8%,rgba(255,255,255,.20),transparent 60%),
+    radial-gradient(900px 500px at 100% 100%,rgba(255,255,255,.12),transparent 55%),
+    linear-gradient(150deg,#1565c0,#0d47a1);
+  animation:mui-fade-in .25s var(--mui-ease);
+}
+.login-panel,.lock-card{
+  width:min(440px,92vw);background:var(--mui-paper);border-radius:var(--mui-radius-lg);
+  padding:32px;display:grid;gap:16px;box-shadow:var(--mui-elev-24);
+  animation:mui-dialog-in .28s var(--mui-ease);
+}
+.login-panel h1{
+  display:flex;align-items:center;gap:10px;
+  font-size:1.375rem;font-weight:600;color:var(--mui-text-primary);
+}
+.login-panel h1::before{
+  content:'';flex:0 0 auto;width:26px;height:26px;background:var(--mui-primary-main);
+  -webkit-mask:var(--mui-icon-school) center/contain no-repeat;
+  mask:var(--mui-icon-school) center/contain no-repeat;
+}
+.login-panel p{color:var(--mui-text-secondary);font-size:.8125rem;line-height:1.7}
+.login-panel small{display:block;color:var(--mui-text-secondary);font-size:.75rem;line-height:1.7}
+.login-panel input,.login-panel button{width:100%;min-height:44px}
+.login-panel .link{justify-content:center;min-height:36px}
+.login-panel .field>label{font-size:.75rem}
 #login[hidden],#app[hidden]{display:none!important}
 
-/* 弹窗 / 提示 */
-.modal{position:fixed;inset:0;z-index:15;background:rgba(12,28,45,.45);display:grid;place-items:center;padding:16px}
-.modal .card{width:min(820px,96vw);max-height:90vh;overflow:auto;box-shadow:0 24px 60px rgba(8,30,58,.3)}
+/* =======================================================================
+   12. Dialog（弹窗）
+   ======================================================================= */
+.modal{
+  position:fixed;inset:0;z-index:1300;padding:24px;
+  display:grid;place-items:center;background:rgba(0,0,0,.5);
+  animation:mui-fade-in .2s var(--mui-ease);
+}
+.modal .card{
+  width:min(880px,96vw);max-height:90vh;margin:0;padding:0;
+  display:flex;flex-direction:column;overflow:auto;
+  border-radius:var(--mui-radius);box-shadow:var(--mui-elev-24);
+  animation:mui-dialog-in .26s var(--mui-ease-emphasized);
+}
 .modal .chart{height:250px}
+.mhead{
+  position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:12px;
+  padding:16px 24px;background:var(--mui-paper);border-bottom:1px solid var(--mui-divider);
+}
+.mhead h2{margin:0 auto 0 0;font-size:1.25rem;font-weight:500}
+.mclose{
+  border:1px solid transparent;background:transparent;color:var(--mui-text-secondary);
+  min-height:34px;padding:5px 12px;font-size:.8125rem;border-radius:var(--mui-radius-xs);
+}
+.mclose:hover{background:var(--mui-action-hover);color:var(--mui-text-primary);border-color:transparent}
+.mbody{padding:20px 24px;flex:1}
+.mbody>.grid,.mbody .grid{gap:16px}
+.mfoot{
+  position:sticky;bottom:0;z-index:3;margin:0;padding:14px 24px;gap:8px;
+  justify-content:flex-end;background:var(--mui-paper);
+  border-top:1px solid var(--mui-divider);box-shadow:none;
+}
+.mfoot button{min-width:88px}
 
-/* 弹窗：右上角常驻关闭按钮 + 底部按钮吸底 */
-.modal .card{padding:0;overflow:auto;display:flex;flex-direction:column}
-.mhead{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:14px 18px;background:#fff;border-bottom:1px solid var(--line)}
-.mhead h2{margin:0 auto 0 0;font-size:18px}
-.mclose{border:0;background:#f2f5f9;color:#3d4d5e;padding:7px 12px;border-radius:8px;font-size:13px;white-space:nowrap}
-.mclose:hover{background:#e3ebf6;color:#16202c}
-.mbody{padding:16px 18px;flex:1}
-.mfoot{position:sticky;bottom:0;z-index:3;margin:0;padding:12px 18px;background:#fff;border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(16,42,67,.05)}
-#toast{position:fixed;right:20px;bottom:22px;z-index:30;display:none;background:#16202c;color:#fff;padding:12px 16px;border-radius:var(--r-s);box-shadow:var(--sh);max-width:70vw}
+/* =======================================================================
+   13. Snackbar（#toast）
+   ======================================================================= */
+#toast{
+  position:fixed;left:24px;bottom:24px;z-index:1400;display:none;
+  max-width:min(560px,80vw);padding:14px 18px;
+  background:#323232;color:#fff;font-size:.875rem;line-height:1.6;
+  border-radius:var(--mui-radius-xs);box-shadow:var(--mui-elev-6);
+  animation:mui-snackbar-in .25s var(--mui-ease);
+}
 
-/* 响应式 */
+/* =======================================================================
+   14. 照片缩略图
+   ======================================================================= */
+.photobox{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+img.thumb{
+  width:56px;height:56px;object-fit:cover;cursor:pointer;
+  border:1px solid var(--mui-divider);border-radius:var(--mui-radius-sm);
+  transition:box-shadow .18s var(--mui-ease),transform .18s var(--mui-ease),border-color .18s var(--mui-ease);
+}
+img.thumb:hover{transform:translateY(-2px);box-shadow:var(--mui-elev-3);border-color:var(--mui-primary-light)}
+
+/* =======================================================================
+   15. 动效
+   ======================================================================= */
+@keyframes mui-fade-in{from{opacity:0}to{opacity:1}}
+@keyframes mui-dialog-in{
+  from{opacity:0;transform:translateY(8px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+@keyframes mui-snackbar-in{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
+}
+
+/* =======================================================================
+   16. 响应式
+   ======================================================================= */
+@media(max-width:1100px){
+  header #className{max-width:240px}
+}
 @media(max-width:1000px){
   header #className{display:none}
   .split{grid-template-columns:1fr}
 }
+@media(max-width:820px){
+  header{gap:6px 8px;padding:8px 14px}
+  main{padding:0 14px;margin-top:14px}
+  .card{padding:16px 18px}
+  .modal{padding:12px}
+  .modal .card{max-height:94vh;border-radius:var(--mui-radius-sm)}
+  .mhead{padding:14px 18px}
+  .mhead h2{font-size:1.0625rem}
+  .mbody{padding:16px 18px}
+  .mfoot{padding:12px 18px}
+}
 @media(max-width:700px){
-  header{padding:8px 12px;gap:6px}
-  header strong{font-size:15px}
-  nav{top:auto;position:static;padding:8px 10px}
-  main{padding:0 10px;margin-top:10px}
-  .card{padding:14px}
+  header strong{font-size:1rem}
+  header #syncState{margin-left:0;order:12;flex:1 0 100%;font-size:.6875rem}
+  header select{max-width:none}
+  header #classSwitch{flex:0 1 auto}
+  header #termSwitch{flex:1 1 100%}
+  /* 手机上“上一页/下一页”改成图标按钮，顶栏更省地方 */
+  header #navBack,header #navFwd{font-size:0;min-width:46px;padding:5px 10px}
+  header #navBack::after{content:'←';font-size:1.125rem;line-height:1}
+  header #navFwd::after{content:'→';font-size:1.125rem;line-height:1}
+  nav{position:static;top:auto;padding:0 8px}
+  nav button{min-height:44px;padding:0 12px}
+  main{padding:0 10px;margin-top:12px}
+  .card{padding:14px 16px;border-radius:var(--mui-radius-sm)}
   .chart{height:240px}
-  .podium{grid-template-columns:1fr}
+  .podium{grid-template-columns:1fr;gap:10px}
   .cards{grid-template-columns:1fr}
+  .toolbar h2{font-size:1.0625rem}
+  .grid{grid-template-columns:1fr;gap:14px}
+  #toast{left:12px;right:12px;bottom:12px;max-width:none}
 }
+
+/* =======================================================================
+   17. 打印
+   ======================================================================= */
 @media print{
-  header,nav,.toolbar,.chart-tools{display:none!important}
-  .card{box-shadow:none;border-color:#ccc}
+  body{background:#fff}
+  header,nav,.toolbar,.chart-tools,.hint::before,.banner::before{display:none!important}
+  .card{box-shadow:none;border:1px solid #ccc;padding:0 0 8px}
+  .table-wrap{border-color:#ccc;max-height:none;overflow:visible}
+  th:first-child,td:first-child,th{position:static;box-shadow:none}
+  .modal{display:none!important}
 }
 
-/* 照片缩略图 */
-.photobox{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-img.thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:pointer;transition:.15s}
-img.thumb:hover{transform:scale(1.06);border-color:var(--blue)}
-
-/* 小组卡片：成员一人一行 */
-.cgroup{border:1px solid var(--line);border-radius:10px;margin:8px 0;overflow:hidden;background:#fff}
-.chead{display:flex;align-items:center;gap:10px;padding:9px 13px;background:#f7fafd;cursor:pointer;user-select:none}
-.chead:hover{background:#eef4fb}
-.chead b{font-size:13.5px;color:#1a5fd0}
-.chead .cbtns{margin-left:auto;display:flex;gap:6px}
-.chead .cbtns button{padding:4px 10px;font-size:12px}
-.cbody{flex-wrap:wrap;gap:8px;padding:10px 13px;border-top:1px solid var(--line-2)}
-
-.widecards{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
-.gcard{padding:0;overflow:hidden;display:flex;flex-direction:column}
-.ghead{padding:12px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#f7faff,#fff)}
-.ghead>span{display:block;color:var(--ink-2);font-size:12px}
-.ghead>b{display:block;font-size:17px;color:var(--blue-d);margin-top:2px}
-.memberlist{max-height:300px;overflow:auto;padding:4px 0;flex:1}
-.member{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 14px;border-bottom:1px solid var(--line-2)}
-.member:last-child{border-bottom:0}
-.member:hover{background:#f7faff}
-.member .mname{font-size:14px}
-.member button{padding:4px 9px;font-size:12px;color:var(--red);border-color:#f0c6c6;background:#fff}
-.member button:hover{background:var(--red-soft)}
-.empty-member{color:var(--ink-3);font-size:13px}
-.gcard .filters{padding:0 14px;margin:10px 0}
-.gcard .filters select{flex:1;min-width:0}
-.gfoot{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line);background:#fcfdff}
+/* =======================================================================
+   18. 无障碍：跟随系统减弱动效
+   ======================================================================= */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
+}
