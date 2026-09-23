@@ -207,7 +207,8 @@ nav button.active::after{
   border-radius:2px 2px 0 0;background:var(--mui-primary-main);
 }
 
-.tabs{display:flex;gap:6px;margin-right:auto;flex-wrap:wrap}
+/* align-items:center 让“届：”这类文字标签与旁边的下拉框居中对齐 */
+.tabs{display:flex;align-items:center;gap:6px;margin-right:auto;flex-wrap:wrap}
 .tabs button{
   min-height:32px;padding:5px 13px;border:1px solid transparent;
   background:#f4f7fb;color:var(--mui-text-secondary);
@@ -244,6 +245,11 @@ main{max-width:1440px;margin:20px auto 48px;padding:0 20px}
 .filters label{
   display:inline-flex;align-items:center;gap:6px;
   font-size:.8125rem;color:var(--mui-text-secondary);
+}
+/* 工具栏里与输入框/下拉框并排的文字标签（如“届：”“看谁：”），字号与控件一致并垂直居中 */
+.toolbar label,.tabs>label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.8125rem;line-height:1.6;white-space:nowrap;
 }
 
 /* TextField（outlined）：标签在上、输入框描边、聚焦 2px 主蓝 */
