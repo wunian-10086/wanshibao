@@ -1,44 +1,59 @@
 /* =======================================================================
-   班级综合素质评价 · MUI 主题层（Material UI 设计语言）
+   班级综合素质评价 · MUI 主题层（配色沿用 v1.2.9 旧版色板）
    -----------------------------------------------------------------------
-   这套样式按 MUI（Material UI）v5 默认主题的令牌重写了整个界面：
-   · 调色板  palette.primary / secondary / error / warning / info / success
-   · 排版    Roboto + Material 字阶（1.125rem 标题 / .875rem 正文 / .75rem 说明）
-   · 阴影    elevation 1~24（与 MUI 源码一致的三层投影）
-   · 组件    AppBar、Tabs、Paper(Card)、Button(contained/outlined/text)、
-             TextField(outlined)、Chip、Table、Dialog、Snackbar、Alert、Tooltip 形态
-   所有原有的 class 名都保持不变，app.js 的逻辑完全不用改。
+   结构、间距、交互按 MUI（Material UI）的设计语言来；
+   颜色全部改成上一版用的那套色板，两版看起来是同一个产品：
+     主蓝 #1f6feb / 深蓝 #1a5fd0 / 浅蓝底 #eaf2ff
+     正文 #16202c / 次要 #5b6b7c / 弱化 #8b98a7
+     底 #f2f5f9 / 纸 #ffffff / 分隔线 #e3e9f0 / 细线 #eef2f7
+     红 #d64545(#fdeeee) 绿 #1f9d55(#eaf7f0) 琥珀 #b7791f(#fff8e6)
+   所有原有 class 名保持不变，app.js 业务逻辑一行未改。
    ======================================================================= */
 
 :root{
-  /* ---- MUI palette（light） ---- */
-  --mui-primary-main:#1976d2;
-  --mui-primary-dark:#1565c0;
-  --mui-primary-light:#42a5f5;
+  /* ---- 主色（旧版 --blue / --blue-d / --blue-soft） ---- */
+  --mui-primary-main:#1f6feb;
+  --mui-primary-dark:#1a5fd0;
+  --mui-primary-light:#4a8bf5;
   --mui-primary-contrast:#ffffff;
-  --mui-secondary-main:#9c27b0;
-  --mui-error-main:#d32f2f;
-  --mui-warning-main:#ed6c02;
-  --mui-info-main:#0288d1;
-  --mui-success-main:#2e7d32;
+  --mui-secondary-main:#1a5fd0;
+  /* ---- 语义色（旧版 --red / --green / --amber） ---- */
+  --mui-error-main:#d64545;
+  --mui-error-soft:#fdeeee;
+  --mui-warning-main:#b7791f;
+  --mui-warning-soft:#fff8e6;
+  --mui-info-main:#1f6feb;
+  --mui-info-soft:#f7fafd;
+  --mui-success-main:#1f9d55;
+  --mui-success-soft:#eaf7f0;
 
-  --mui-text-primary:rgba(0,0,0,.87);
-  --mui-text-secondary:rgba(0,0,0,.60);
-  --mui-text-disabled:rgba(0,0,0,.38);
-  --mui-divider:rgba(0,0,0,.12);
-  --mui-divider-soft:rgba(0,0,0,.06);
+  /* ---- 文字（旧版 --ink / --ink-2 / --ink-3） ---- */
+  --mui-text-primary:#16202c;
+  --mui-text-secondary:#5b6b7c;
+  --mui-text-disabled:#8b98a7;
+  /* ---- 线条（旧版 --line / --line-2） ---- */
+  --mui-divider:#e3e9f0;
+  --mui-divider-soft:#eef2f7;
 
-  /* action 层（半透明叠加色，MUI action.*） */
-  --mui-action-hover:rgba(0,0,0,.04);
-  --mui-action-selected:rgba(0,0,0,.08);
-  --mui-action-hover-solid:#f5f5f5;      /* 4% 黑叠在白纸上 */
-  --mui-action-selected-solid:#ebebeb;
-  --mui-primary-hover:rgba(25,118,210,.04);
-  --mui-primary-selected:rgba(25,118,210,.08);
-  --mui-primary-soft:rgba(25,118,210,.12);
+  /* ---- 交互叠色（旧版 hover/选中底色） ---- */
+  --mui-action-hover:#f7fafd;
+  --mui-action-selected:#eef4fb;
+  --mui-action-hover-solid:#f5f9ff;
+  --mui-action-selected-solid:#eef4fb;
+  --mui-primary-hover:rgba(31,111,235,.06);
+  --mui-primary-selected:rgba(31,111,235,.12);
+  --mui-primary-soft:#eaf2ff;
 
-  --mui-bg-default:#f4f6f8;
+  /* ---- 背景 ---- */
+  --mui-bg-default:#f2f5f9;
   --mui-paper:#ffffff;
+  --mui-paper-soft:#fbfdff;      /* 旧版统计卡底色 */
+  --mui-thead:#f7fafd;           /* 旧版表头底色 */
+  --mui-zebra:#fcfdff;           /* 旧版斑马纹 */
+  --mui-tfoot:#eef4fb;           /* 旧版合计行 */
+  --mui-field-border:#cfdae6;    /* 旧版输入框描边 */
+  --mui-field-border-hover:#b9cbe0;
+  --mui-danger-border:#f0c6c6;
 
   /* ---- shape ---- */
   --mui-radius-xs:4px;
@@ -47,14 +62,14 @@
   --mui-radius-lg:16px;
   --mui-radius-pill:999px;
 
-  /* ---- elevation（MUI v5 阴影表） ---- */
-  --mui-elev-1:0 2px 1px -1px rgba(0,0,0,.20),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12);
-  --mui-elev-2:0 3px 1px -2px rgba(0,0,0,.20),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
-  --mui-elev-3:0 3px 3px -2px rgba(0,0,0,.20),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);
-  --mui-elev-4:0 2px 4px -1px rgba(0,0,0,.20),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
-  --mui-elev-6:0 3px 5px -1px rgba(0,0,0,.20),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
-  --mui-elev-8:0 5px 5px -3px rgba(0,0,0,.20),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);
-  --mui-elev-24:0 11px 15px -7px rgba(0,0,0,.20),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);
+  /* ---- elevation（MUI 阴影结构 + 旧版深蓝投影色 rgba(16,42,67) ） ---- */
+  --mui-elev-1:0 2px 1px -1px rgba(16,42,67,.16),0 1px 1px 0 rgba(16,42,67,.10),0 1px 3px 0 rgba(16,42,67,.09);
+  --mui-elev-2:0 3px 1px -2px rgba(16,42,67,.16),0 2px 2px 0 rgba(16,42,67,.10),0 1px 5px 0 rgba(16,42,67,.09);
+  --mui-elev-3:0 3px 3px -2px rgba(16,42,67,.16),0 3px 4px 0 rgba(16,42,67,.10),0 1px 8px 0 rgba(16,42,67,.09);
+  --mui-elev-4:0 2px 4px -1px rgba(16,42,67,.16),0 4px 5px 0 rgba(16,42,67,.10),0 1px 10px 0 rgba(16,42,67,.09);
+  --mui-elev-6:0 3px 5px -1px rgba(16,42,67,.16),0 6px 10px 0 rgba(16,42,67,.10),0 1px 18px 0 rgba(16,42,67,.09);
+  --mui-elev-8:0 5px 5px -3px rgba(16,42,67,.16),0 8px 10px 1px rgba(16,42,67,.10),0 3px 14px 2px rgba(16,42,67,.09);
+  --mui-elev-24:0 11px 15px -7px rgba(8,30,58,.22),0 24px 38px 3px rgba(8,30,58,.16),0 9px 46px 8px rgba(8,30,58,.12);
 
   /* 动效曲线（MUI easing.standard / emphasized） */
   --mui-ease:cubic-bezier(.4,0,.2,1);
@@ -62,13 +77,13 @@
   /* AppBar 实际高度，由 mui-enhance.js 用量出来的值刷新 */
   --appbar-h:64px;
 
-  /* Material 图标（data URI，避免额外网络请求） */
+  /* Material 图标（data URI，颜色取旧版 --ink-2 / --ink-3） */
   --mui-icon-info:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E");
   --mui-icon-warning:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/%3E%3C/svg%3E");
   --mui-icon-school:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z'/%3E%3C/svg%3E");
   --mui-icon-person:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
-  --mui-icon-search:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' fill-opacity='0.54' d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
-  --mui-icon-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' fill-opacity='0.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  --mui-icon-search:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238b98a7' d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+  --mui-icon-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235b6b7c' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
 }
 
 *{box-sizing:border-box}
@@ -83,27 +98,28 @@ h1,h2,h3{margin:0;line-height:1.35;font-weight:500}
 p{margin:0 0 8px}
 a{color:var(--mui-primary-main);text-decoration:none}
 a:hover{text-decoration:underline}
-::selection{background:rgba(25,118,210,.22)}
+::selection{background:rgba(31,111,235,.22)}
 
 /* hidden 属性优先于本文件的 display 声明（否则 button{display:flex} 会顶掉 [hidden]） */
 [hidden]{display:none!important}
 
-/* 通用聚焦环（MUI 用 2px primary 轮廓） */
+/* 通用聚焦环 */
 :focus-visible{outline:2px solid var(--mui-primary-main);outline-offset:2px}
 
 /* =======================================================================
-   1. AppBar（顶栏）
+   1. AppBar（顶栏）—— 沿用旧版的蓝色渐变
    ======================================================================= */
 header{
   position:sticky;top:0;z-index:1100;
   display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;
   min-height:64px;padding:8px 20px;
-  background:var(--mui-primary-main);color:var(--mui-primary-contrast);
+  background:linear-gradient(180deg,#1f6feb,#1a63d6);
+  color:var(--mui-primary-contrast);
   box-shadow:var(--mui-elev-4);
-  transition:box-shadow .2s var(--mui-ease),background-color .2s var(--mui-ease);
+  transition:box-shadow .2s var(--mui-ease);
 }
 header.scrolled{box-shadow:var(--mui-elev-6)}
-/* 在“标题行”之后强制换行，让控件自成第二行（MUI 双层 AppBar 的感觉） */
+/* 在“标题行”之后强制换行，让控件自成第二行 */
 header::after{content:'';order:6;flex:0 0 100%;height:0}
 
 header strong{
@@ -119,11 +135,11 @@ header #className{
   order:2;display:inline-flex;align-items:center;max-width:38vw;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   padding:3px 10px;border-radius:var(--mui-radius-pill);
-  background:rgba(255,255,255,.16);color:#fff;font-size:.75rem;line-height:1.6;
+  background:rgba(255,255,255,.14);color:#dbe8ff;font-size:.75rem;line-height:1.6;
 }
 header #userBox{
   order:3;display:inline-flex;align-items:center;gap:6px;
-  font-size:.8125rem;color:rgba(255,255,255,.88);
+  font-size:.8125rem;color:#dbe8ff;
 }
 header #userBox::before{
   content:'';width:16px;height:16px;background:currentColor;
@@ -131,7 +147,7 @@ header #userBox::before{
   mask:var(--mui-icon-person) center/contain no-repeat;
 }
 header #userBox:empty{display:none}
-header #syncState{order:4;margin-left:auto;font-size:.75rem;color:rgba(255,255,255,.85);white-space:nowrap}
+header #syncState{order:4;margin-left:auto;font-size:.75rem;color:#dbe8ff;white-space:nowrap}
 header #logoutBtn{order:5}
 header #navBack{order:7}
 header #navFwd{order:8}
@@ -139,17 +155,17 @@ header #classSwitch{order:9}
 header #termSwitch{order:10}
 header #navUsers{order:11}
 
-/* AppBar 里的按钮：白色描边 / 文字型（MUI Button color="inherit"） */
 header button{
   min-height:34px;padding:5px 12px;font-size:.8125rem;
-  color:#fff;background:transparent;border:1px solid rgba(255,255,255,.5);
+  color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
 }
-header button:hover{background:rgba(255,255,255,.14);border-color:#fff;color:#fff}
-header button:active{background:rgba(255,255,255,.22)}
-header button:disabled{color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.22);background:transparent}
+header button:hover{background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.6);color:#fff}
+header button:active{background:rgba(255,255,255,.32)}
+header button:disabled{color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.08)}
 header select{
   width:auto;max-width:min(320px,44vw);min-height:34px;padding:5px 30px 5px 10px;font-size:.8125rem;
-  background-color:#fff;border:1px solid transparent;border-radius:var(--mui-radius-xs);
+  background-color:rgba(255,255,255,.96);color:var(--mui-text-primary);
+  border:1px solid transparent;border-radius:var(--mui-radius-xs);
 }
 header select:hover{border-color:rgba(255,255,255,.6)}
 
@@ -169,22 +185,25 @@ nav button{
   color:var(--mui-text-secondary);font-size:.875rem;font-weight:500;
   transition:background-color .15s var(--mui-ease),color .15s var(--mui-ease);
 }
-nav button:hover{background:var(--mui-primary-hover);color:var(--mui-text-primary)}
-nav button.active{color:var(--mui-primary-main);font-weight:600}
+nav button:hover{background:var(--mui-primary-soft);color:var(--mui-text-primary)}
+nav button.active{color:var(--mui-primary-dark);font-weight:600}
 nav button.active::after{
   content:'';position:absolute;left:12px;right:12px;bottom:0;height:2px;
   border-radius:2px 2px 0 0;background:var(--mui-primary-main);
 }
 
-.tabs{display:flex;gap:4px;margin-right:auto;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;margin-right:auto;flex-wrap:wrap}
 .tabs button{
-  min-height:32px;padding:5px 12px;border:0;background:transparent;
-  color:var(--mui-text-secondary);font-size:.8125rem;border-radius:var(--mui-radius-xs);
+  min-height:32px;padding:5px 13px;border:1px solid transparent;
+  background:#f4f7fb;color:var(--mui-text-secondary);
+  font-size:.8125rem;border-radius:var(--mui-radius-sm);
 }
-.tabs button:hover{background:var(--mui-action-hover);color:var(--mui-text-primary)}
+.tabs button:hover{background:var(--mui-primary-soft);border-color:#cfe0ff;color:var(--mui-primary-dark)}
 .tabs button.active{
-  background:var(--mui-primary-soft);color:var(--mui-primary-dark);font-weight:600;
+  background:var(--mui-primary-main);border-color:var(--mui-primary-main);
+  color:#fff;font-weight:600;box-shadow:var(--mui-elev-2);
 }
+.tabs button.active:hover{background:var(--mui-primary-dark)}
 
 /* =======================================================================
    3. 布局与 Paper(Card)
@@ -208,11 +227,11 @@ main{max-width:1440px;margin:20px auto 48px;padding:0 20px}
   font-size:.8125rem;color:var(--mui-text-secondary);
 }
 
-/* TextField（outlined）：标签在上、输入框 1px 描边、聚焦 2px primary */
+/* TextField（outlined）：标签在上、输入框描边、聚焦 2px 主蓝 */
 .field{display:grid;gap:6px;min-width:0}
 .field>label{font-size:.75rem;font-weight:500;color:var(--mui-text-secondary);line-height:1.4}
 .lbl{color:var(--mui-text-secondary);font-size:.8125rem}
-.mini{display:block;font-weight:400;color:var(--mui-text-secondary);font-size:.75rem;line-height:1.5}
+.mini{display:block;font-weight:400;color:var(--mui-text-disabled);font-size:.75rem;line-height:1.5}
 
 /* =======================================================================
    4. 控件：Button / TextField / Checkbox
@@ -223,40 +242,40 @@ button,input,select,textarea{
 button{
   position:relative;overflow:hidden;isolation:isolate;
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  min-height:36px;padding:6px 14px;border:0;border-radius:var(--mui-radius-xs);
-  background:transparent;color:var(--mui-primary-main);font-weight:500;letter-spacing:.01em;
+  min-height:36px;padding:6px 14px;border:0;border-radius:var(--mui-radius-sm);
+  background:transparent;color:var(--mui-primary-dark);font-weight:500;letter-spacing:.01em;
   cursor:pointer;white-space:nowrap;
   transition:background-color .15s var(--mui-ease),box-shadow .15s var(--mui-ease),border-color .15s var(--mui-ease),color .15s var(--mui-ease);
   -webkit-tap-highlight-color:transparent;
 }
-button:hover{background:var(--mui-primary-hover)}
-button:active{background:var(--mui-primary-selected)}
+button:hover{background:var(--mui-action-hover)}
+button:active{background:var(--mui-action-selected)}
 button:disabled{color:var(--mui-text-disabled);background:transparent;cursor:not-allowed}
 
-/* contained：主操作 */
+/* contained：主操作（旧版 --blue / --blue-d） */
 .primary{
   background:var(--mui-primary-main);color:var(--mui-primary-contrast);
   box-shadow:var(--mui-elev-2);padding:6px 16px;
 }
 .primary:hover{background:var(--mui-primary-dark);box-shadow:var(--mui-elev-4)}
 .primary:active{background:var(--mui-primary-dark);box-shadow:var(--mui-elev-8)}
-.primary:disabled{background:rgba(0,0,0,.12);color:var(--mui-text-disabled);box-shadow:none}
+.primary:disabled{background:#e3e9f0;color:var(--mui-text-disabled);box-shadow:none}
 /* 危险操作的确认按钮：mui-enhance.js 会给“二次确认”弹窗的确定键加上 .mui-danger */
 .primary.mui-danger{background:var(--mui-error-main)}
-.primary.mui-danger:hover{background:#c62828}
-.primary.mui-danger:active{background:#b71c1c}
+.primary.mui-danger:hover{background:#c03a3a}
+.primary.mui-danger:active{background:#ad3232}
 
-/* outlined error：危险操作 */
+/* outlined error：危险操作（旧版 .danger 的配色） */
 .danger{
   background:transparent;color:var(--mui-error-main);
-  border:1px solid rgba(211,47,47,.5);
+  border:1px solid var(--mui-danger-border);
 }
-.danger:hover{background:rgba(211,47,47,.04);border-color:var(--mui-error-main)}
-.danger:active{background:rgba(211,47,47,.1)}
+.danger:hover{background:var(--mui-error-soft);border-color:var(--mui-error-main)}
+.danger:active{background:#fbe0e0}
 
 /* text：链接式按钮 */
 .link,.linkbtn{
-  border:0;background:transparent;color:var(--mui-primary-main);
+  border:0;background:transparent;color:var(--mui-primary-dark);
   padding:6px 8px;min-height:32px;text-decoration:none;font-weight:500;
 }
 .link:hover,.linkbtn:hover{background:var(--mui-primary-hover);text-decoration:none}
@@ -265,19 +284,19 @@ button:disabled{color:var(--mui-text-disabled);background:transparent;cursor:not
 
 input,select,textarea{
   min-height:40px;padding:9px 12px;
-  background:var(--mui-paper);border:1px solid rgba(0,0,0,.23);
-  border-radius:var(--mui-radius-xs);
+  background:var(--mui-paper);border:1px solid var(--mui-field-border);
+  border-radius:var(--mui-radius-sm);
   transition:border-color .15s var(--mui-ease),box-shadow .15s var(--mui-ease),background-color .15s var(--mui-ease);
 }
 /* 表单栅格/弹窗里的输入框撑满整格；表格、工具栏里的按内容或内联宽度走 */
 .field input,.field select,.field textarea,.login-panel input{width:100%}
-input:hover:not(:disabled),select:hover:not(:disabled),textarea:hover:not(:disabled){border-color:var(--mui-text-primary)}
+input:hover:not(:disabled),select:hover:not(:disabled),textarea:hover:not(:disabled){border-color:var(--mui-field-border-hover)}
 input:focus,select:focus,textarea:focus{
   outline:none;border-color:var(--mui-primary-main);
   box-shadow:inset 0 0 0 1px var(--mui-primary-main);
 }
 input:disabled,select:disabled,textarea:disabled{
-  color:var(--mui-text-disabled);background:rgba(0,0,0,.04);border-color:var(--mui-divider);
+  color:var(--mui-text-disabled);background:#f2f5f9;border-color:var(--mui-divider);
 }
 input::placeholder,textarea::placeholder{color:var(--mui-text-disabled)}
 textarea{min-height:88px;resize:vertical}
@@ -301,15 +320,15 @@ input[type=checkbox],input[type=radio]{
   vertical-align:-3px;cursor:pointer;box-shadow:none;
 }
 
-/* 工具栏里的搜索框：Material 放大镜 */
+/* 工具栏里的搜索框：放大镜图标 */
 .toolbar input[placeholder*="搜索"],#personSearch{
   padding-left:36px;
   background-image:var(--mui-icon-search);
   background-repeat:no-repeat;background-position:10px 50%;background-size:18px 18px;
+  width:240px;max-width:100%;
 }
 .toolbar input,.toolbar select{min-height:38px;padding-top:8px;padding-bottom:8px;font-size:.8125rem}
 .toolbar input[placeholder*="搜索"],.toolbar #personSearch{padding-left:36px}
-.toolbar input[placeholder*="搜索"],.toolbar #personSearch{width:240px;max-width:100%}
 
 /* 点击水波纹（MUI TouchRipple 效果，由 mui-enhance.js 注入） */
 .mui-ripple{
@@ -325,39 +344,39 @@ input[type=checkbox],input[type=radio]{
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
 .chip{
   display:inline-flex;align-items:center;gap:6px;
-  min-height:32px;padding:0 14px;border-radius:var(--mui-radius-pill);
-  border:1px solid rgba(0,0,0,.16);background:var(--mui-paper);
+  min-height:32px;padding:0 15px;border-radius:var(--mui-radius-pill);
+  border:1px solid #e2e9f2;background:#f4f7fb;
   color:var(--mui-text-secondary);font-size:.8125rem;font-weight:400;
 }
-.chip:hover{background:var(--mui-action-hover);color:var(--mui-text-primary);border-color:rgba(0,0,0,.24)}
+.chip:hover{background:var(--mui-primary-soft);border-color:#cfe0ff;color:var(--mui-primary-dark)}
 .chip.active{
   background:var(--mui-primary-main);border-color:var(--mui-primary-main);
   color:#fff;font-weight:600;box-shadow:var(--mui-elev-2);
 }
 .chip.active:hover{background:var(--mui-primary-dark)}
 .tag{
-  display:inline-flex;align-items:center;height:22px;padding:0 8px;margin-right:6px;
-  border-radius:var(--mui-radius-xs);background:var(--mui-primary-soft);
+  display:inline-flex;align-items:center;height:22px;padding:0 9px;margin-right:6px;
+  border-radius:var(--mui-radius-pill);background:var(--mui-primary-soft);
   color:var(--mui-primary-dark);font-size:.6875rem;font-weight:500;white-space:nowrap;
 }
-.tag.quiz{background:rgba(237,108,2,.12);color:#a54800}
+.tag.quiz{background:#fff3e0;color:#a35b00}
 .positive{color:var(--mui-success-main);font-weight:600}
 .negative{color:var(--mui-error-main);font-weight:600}
 .rank{font-weight:600;color:var(--mui-text-primary)}
 .zoom{color:var(--mui-primary-main);font-size:.6875rem}
-.empty{color:var(--mui-text-secondary);padding:40px 20px;text-align:center;font-size:.875rem}
+.empty{color:var(--mui-text-disabled);padding:40px 20px;text-align:center;font-size:.875rem}
 
 /* =======================================================================
-   6. Alert（.hint / .banner）
+   6. Alert（.hint / .banner）—— 沿用旧版浅蓝/浅琥珀提示条
    ======================================================================= */
 .hint,.banner{
   padding:12px 16px;border-radius:var(--mui-radius-sm);margin:12px 0;
   font-size:.8125rem;line-height:1.7;border-left:4px solid transparent;
 }
-/* 提示框用“块级 + 绝对定位图标”，这样里面的整段文字仍然是正常流，不会被拆散 */
+/* 提示框用“块级 + 绝对定位图标”，里面的整段文字仍是正常流，不会被拆散 */
 .hint{
   position:relative;padding-left:46px;
-  background:#e5f4fd;color:#014361;border-left-color:var(--mui-info-main);
+  background:var(--mui-info-soft);color:var(--mui-primary-dark);border-left-color:var(--mui-primary-main);
 }
 .hint::before{
   content:'';position:absolute;left:14px;top:13px;width:18px;height:18px;background:currentColor;
@@ -366,7 +385,7 @@ input[type=checkbox],input[type=radio]{
 }
 .banner{
   display:flex;flex-wrap:wrap;align-items:center;gap:8px;
-  background:#fff4e5;color:#663c00;border-left-color:var(--mui-warning-main);
+  background:var(--mui-warning-soft);color:#7a5b12;border-left-color:var(--mui-warning-main);
 }
 .banner::before{
   content:'';flex:0 0 auto;width:18px;height:18px;background:currentColor;
@@ -375,13 +394,13 @@ input[type=checkbox],input[type=radio]{
 }
 .banner b{font-weight:600}
 .banner button{
-  border:1px solid rgba(102,60,0,.35);color:#663c00;background:transparent;
+  border:1px solid #f2dfae;color:#7a5b12;background:#fffdf6;
   min-height:30px;padding:3px 10px;font-size:.75rem;
 }
-.banner button:hover{background:rgba(102,60,0,.08);border-color:rgba(102,60,0,.5)}
+.banner button:hover{background:var(--mui-warning-soft);border-color:var(--mui-warning-main)}
 
 /* =======================================================================
-   7. Table（MUI Table：sticky 表头 + 首列固定）
+   7. Table（MUI Table：sticky 表头 + 首列固定，底色沿用旧版）
    ======================================================================= */
 .table-wrap{
   overflow:auto;max-height:620px;background:var(--mui-paper);
@@ -390,9 +409,9 @@ input[type=checkbox],input[type=radio]{
 }
 .table-wrap::-webkit-scrollbar{width:10px;height:10px}
 .table-wrap::-webkit-scrollbar-thumb{
-  background:rgba(0,0,0,.22);border-radius:8px;border:2px solid transparent;background-clip:content-box;
+  background:rgba(16,42,67,.22);border-radius:8px;border:2px solid transparent;background-clip:content-box;
 }
-.table-wrap::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.34);background-clip:content-box}
+.table-wrap::-webkit-scrollbar-thumb:hover{background:rgba(16,42,67,.34);background-clip:content-box}
 
 table{
   width:100%;min-width:720px;border-collapse:separate;border-spacing:0;
@@ -400,23 +419,25 @@ table{
 }
 th,td{padding:12px 14px;text-align:left;vertical-align:middle}
 th{
-  position:sticky;top:0;z-index:2;background:var(--mui-paper);
+  position:sticky;top:0;z-index:2;background:var(--mui-thead);
   color:var(--mui-text-secondary);font-weight:600;white-space:nowrap;
   border-bottom:1px solid var(--mui-divider);
 }
 td{border-bottom:1px solid var(--mui-divider-soft)}
 tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:var(--mui-zebra)}
 tbody tr{transition:background-color .12s var(--mui-ease)}
-tbody tr:hover td{background:var(--mui-action-hover-solid)}
+tbody tr:hover{background:var(--mui-action-hover-solid)}
 /* 首列固定在左侧：宽表在手机/小窗口下也能看清“这是谁” */
 th:first-child,td:first-child{position:sticky;left:0;z-index:1;background:var(--mui-paper)}
-thead th:first-child{z-index:3}
+thead th:first-child{z-index:3;background:var(--mui-thead)}
+tbody tr:nth-child(even) td:first-child{background:var(--mui-zebra)}
 tbody tr:hover td:first-child{background:var(--mui-action-hover-solid)}
-td:first-child,th:first-child{box-shadow:inset -1px 0 0 var(--mui-divider-soft)}
+th:first-child,td:first-child{box-shadow:inset -1px 0 0 var(--mui-divider-soft)}
 
-tfoot th,tfoot td{background:#fafafa;font-weight:600;border-top:1px solid var(--mui-divider);border-bottom:0}
-th.clickable{cursor:pointer;color:var(--mui-primary-main)}
-th.clickable:hover{background:var(--mui-primary-hover)}
+tfoot th,tfoot td{background:var(--mui-tfoot);font-weight:600;border-top:1px solid var(--mui-divider);border-bottom:0}
+th.clickable{cursor:pointer;color:var(--mui-primary-dark)}
+th.clickable:hover{background:#e8f1ff}
 td.actions{white-space:nowrap}
 td.actions button{margin-right:4px;min-height:30px;padding:3px 8px;font-size:.8125rem}
 /* 表格里的“删除/移出”做成文字按钮，不要每个格子都套一个红框 */
@@ -432,17 +453,17 @@ td.actions button.danger:hover,
 td button.danger:hover,
 td button[onclick*="Remove"]:hover,
 td button[onclick*="Delete"]:hover,
-td button[onclick*="remove"]:hover{background:rgba(211,47,47,.08)}
+td button[onclick*="remove"]:hover{background:var(--mui-error-soft)}
 td .score,td input.score{width:88px;min-height:36px;padding:6px 8px;text-align:center}
 input.fullIn{text-align:center}
-td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
+td.passCell,.passCell{color:var(--mui-text-disabled);font-size:.75rem}
 
 /* 矩阵表（点格子看详情） */
 .matrix td.cell{cursor:pointer;text-align:center}
 .matrix td.cell.up{color:var(--mui-success-main);font-weight:600}
 .matrix td.cell.down{color:var(--mui-error-main)}
 .matrix td.cell:hover{background:var(--mui-primary-soft)}
-.matrix th.focusCol{background:var(--mui-primary-soft)}
+.matrix th.focusCol{background:#dce9ff}
 
 /* =======================================================================
    8. 图表
@@ -467,33 +488,33 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 #personCharts{border-radius:var(--mui-radius-sm)}
 
 /* =======================================================================
-   9. 统计卡 / 榜单
+   9. 统计卡 / 榜单（旧版浅蓝底）
    ======================================================================= */
 .stat{
-  background:var(--mui-paper);border:1px solid var(--mui-divider);
+  background:var(--mui-paper-soft);border:1px solid var(--mui-divider);
   border-radius:var(--mui-radius-sm);padding:14px 16px;
 }
 .stat>span{display:block;color:var(--mui-text-secondary);font-size:.75rem}
-.stat>b{display:block;font-size:1.5rem;font-weight:600;color:var(--mui-primary-main);margin-top:2px;line-height:1.3}
+.stat>b{display:block;font-size:1.5rem;font-weight:600;color:var(--mui-primary-dark);margin-top:2px;line-height:1.3}
 .stat h3{font-size:1rem}
 .stat-row{
   display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px;
-  background:#fafafa;border:1px solid var(--mui-divider);
+  background:var(--mui-paper-soft);border:1px solid var(--mui-divider);
   border-radius:var(--mui-radius-sm);padding:12px 16px;
 }
 .stat-row b{color:var(--mui-primary-dark)}
 .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .podium article{
   padding:18px 14px;text-align:center;border-radius:var(--mui-radius);
-  background:var(--mui-paper);border:1px solid var(--mui-divider);
+  background:var(--mui-paper-soft);border:1px solid var(--mui-divider);
   box-shadow:var(--mui-elev-1);transition:box-shadow .2s var(--mui-ease),transform .2s var(--mui-ease);
 }
 .podium article:hover{box-shadow:var(--mui-elev-4);transform:translateY(-2px)}
 .podium h3{font-size:1.0625rem;font-weight:600;margin:6px 0 2px}
 .podium article>span{font-size:.8125rem;line-height:1.5}
-.stat.gold,.podium article.gold{background:#fffbeb;border-color:#f2e2ad}
-.stat.silver,.podium article.silver{background:#fafafa;border-color:#e0e0e0}
-.stat.bronze,.podium article.bronze{background:#fdf6f0;border-color:#f0dcc6}
+.stat.gold,.podium article.gold{background:#fffaea;border-color:#f2e0a8}
+.stat.silver,.podium article.silver{background:#f7f9fa;border-color:#dfe5ea}
+.stat.bronze,.podium article.bronze{background:#fff6ee;border-color:#f0dcc6}
 
 /* =======================================================================
    10. 小组卡片（手风琴 + 成员列表）
@@ -504,11 +525,11 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 }
 .chead{
   display:flex;align-items:center;gap:10px;padding:12px 16px;
-  background:#fafafa;cursor:pointer;user-select:none;
+  background:var(--mui-thead);cursor:pointer;user-select:none;
   transition:background-color .15s var(--mui-ease);
 }
-.chead:hover{background:var(--mui-action-hover-solid)}
-.chead b{font-size:.875rem;font-weight:600;color:var(--mui-text-primary)}
+.chead:hover{background:var(--mui-action-selected)}
+.chead b{font-size:.875rem;font-weight:600;color:var(--mui-primary-dark)}
 .chead .cbtns{margin-left:auto;display:flex;gap:6px}
 .chead .cbtns button{min-height:30px;padding:3px 10px;font-size:.75rem}
 .cbody{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--mui-divider-soft)}
@@ -516,7 +537,7 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 .gcard{padding:0;overflow:hidden;display:flex;flex-direction:column}
 .ghead{
   padding:16px;border-bottom:1px solid var(--mui-divider);
-  background:linear-gradient(180deg,#fafcff,#fff);
+  background:linear-gradient(180deg,#f7faff,#fff);
 }
 .ghead>span{display:block;color:var(--mui-text-secondary);font-size:.75rem}
 .ghead>b{display:block;font-size:1.0625rem;font-weight:600;color:var(--mui-primary-dark);margin-top:2px}
@@ -530,16 +551,16 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 .member:hover{background:var(--mui-action-hover)}
 .member .mname{font-size:.875rem}
 .member button{
-  border:0;background:transparent;color:var(--mui-error-main);
-  min-height:28px;padding:2px 8px;font-size:.75rem;
+  border:1px solid var(--mui-danger-border);background:var(--mui-paper);color:var(--mui-error-main);
+  min-height:28px;padding:2px 9px;font-size:.75rem;
 }
-.member button:hover{background:rgba(211,47,47,.08)}
-.empty-member{color:var(--mui-text-secondary);font-size:.8125rem}
+.member button:hover{background:var(--mui-error-soft)}
+.empty-member{color:var(--mui-text-disabled);font-size:.8125rem}
 .gcard .filters{padding:0 16px;margin:10px 0}
 .gcard .filters select{flex:1;min-width:0}
 .gfoot{
   display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;
-  border-top:1px solid var(--mui-divider);background:#fcfcfc;
+  border-top:1px solid var(--mui-divider);background:var(--mui-zebra);
 }
 /* 小组卡片里的“删除”也按危险操作着色 */
 .gfoot button[onclick*="groupDelete"],
@@ -547,17 +568,17 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 .gfoot button[onclick*="delete"]{color:var(--mui-error-main)}
 .gfoot button[onclick*="groupDelete"]:hover,
 .filters button[onclick*="groupDelete"]:hover,
-.gfoot button[onclick*="delete"]:hover{background:rgba(211,47,47,.08)}
+.gfoot button[onclick*="delete"]:hover{background:var(--mui-error-soft)}
 
 /* =======================================================================
-   11. 登录页
+   11. 登录页（沿用旧版深蓝渐变）
    ======================================================================= */
 .lock{
   position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;
   background:
-    radial-gradient(1100px 520px at 12% 8%,rgba(255,255,255,.20),transparent 60%),
-    radial-gradient(900px 500px at 100% 100%,rgba(255,255,255,.12),transparent 55%),
-    linear-gradient(150deg,#1565c0,#0d47a1);
+    radial-gradient(1100px 520px at 12% 8%,rgba(255,255,255,.16),transparent 60%),
+    radial-gradient(900px 500px at 100% 100%,rgba(255,255,255,.10),transparent 55%),
+    linear-gradient(135deg,#14509e,#2b86d8);
   animation:mui-fade-in .25s var(--mui-ease);
 }
 .login-panel,.lock-card{
@@ -575,7 +596,7 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
   mask:var(--mui-icon-school) center/contain no-repeat;
 }
 .login-panel p{color:var(--mui-text-secondary);font-size:.8125rem;line-height:1.7}
-.login-panel small{display:block;color:var(--mui-text-secondary);font-size:.75rem;line-height:1.7}
+.login-panel small{display:block;color:var(--mui-text-disabled);font-size:.75rem;line-height:1.7}
 .login-panel input,.login-panel button{width:100%;min-height:44px}
 .login-panel .link{justify-content:center;min-height:36px}
 .login-panel .field>label{font-size:.75rem}
@@ -586,7 +607,7 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
    ======================================================================= */
 .modal{
   position:fixed;inset:0;z-index:1300;padding:24px;
-  display:grid;place-items:center;background:rgba(0,0,0,.5);
+  display:grid;place-items:center;background:rgba(12,28,45,.45);
   animation:mui-fade-in .2s var(--mui-ease);
 }
 .modal .card{
@@ -602,10 +623,10 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 }
 .mhead h2{margin:0 auto 0 0;font-size:1.25rem;font-weight:500}
 .mclose{
-  border:1px solid transparent;background:transparent;color:var(--mui-text-secondary);
-  min-height:34px;padding:5px 12px;font-size:.8125rem;border-radius:var(--mui-radius-xs);
+  border:1px solid transparent;background:#f2f5f9;color:#3d4d5e;
+  min-height:34px;padding:5px 12px;font-size:.8125rem;border-radius:var(--mui-radius-sm);
 }
-.mclose:hover{background:var(--mui-action-hover);color:var(--mui-text-primary);border-color:transparent}
+.mclose:hover{background:#e3ebf6;color:var(--mui-text-primary);border-color:transparent}
 .mbody{padding:20px 24px;flex:1}
 .mbody>.grid,.mbody .grid{gap:16px}
 .mfoot{
@@ -616,13 +637,13 @@ td.passCell,.passCell{color:var(--mui-text-secondary);font-size:.75rem}
 .mfoot button{min-width:88px}
 
 /* =======================================================================
-   13. Snackbar（#toast）
+   13. Snackbar（#toast，旧版深色底）
    ======================================================================= */
 #toast{
   position:fixed;left:24px;bottom:24px;z-index:1400;display:none;
   max-width:min(560px,80vw);padding:14px 18px;
-  background:#323232;color:#fff;font-size:.875rem;line-height:1.6;
-  border-radius:var(--mui-radius-xs);box-shadow:var(--mui-elev-6);
+  background:var(--mui-text-primary);color:#fff;font-size:.875rem;line-height:1.6;
+  border-radius:var(--mui-radius-sm);box-shadow:var(--mui-elev-6);
   animation:mui-snackbar-in .25s var(--mui-ease);
 }
 
@@ -635,7 +656,7 @@ img.thumb{
   border:1px solid var(--mui-divider);border-radius:var(--mui-radius-sm);
   transition:box-shadow .18s var(--mui-ease),transform .18s var(--mui-ease),border-color .18s var(--mui-ease);
 }
-img.thumb:hover{transform:translateY(-2px);box-shadow:var(--mui-elev-3);border-color:var(--mui-primary-light)}
+img.thumb:hover{transform:translateY(-2px);box-shadow:var(--mui-elev-3);border-color:var(--mui-primary-main)}
 
 /* =======================================================================
    15. 动效
