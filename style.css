@@ -236,6 +236,10 @@ main{max-width:1440px;margin:20px auto 48px;padding:0 20px}
 .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
 .card>.toolbar:not(.mfoot){padding-bottom:14px;border-bottom:1px solid var(--mui-divider)}
 .toolbar h2{font-size:1.125rem;font-weight:600;margin-right:auto;color:var(--mui-text-primary)}
+/* 卡片里的小标题（＜h3＞，如“届与学期 / Excel 导入 / 正分之星 / 最佳小组”）：
+   与下面正文、按钮、卡片之间留出呼吸感；分栏里的第一个标题不额外留上边距 */
+.card h3{margin:18px 0 12px}
+.card section>h3:first-child,.card>h3:first-child{margin-top:0}
 .filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0}
 .filters label{
   display:inline-flex;align-items:center;gap:6px;
@@ -294,6 +298,7 @@ article.stat>div>button:not(.primary):not(.danger){
   border:1px solid var(--mui-field-border);
   background:var(--mui-paper);
   color:var(--mui-primary-dark);
+  padding:5px 10px;
 }
 article.stat>div>button:not(.primary):not(.danger):hover{
   border-color:var(--mui-field-border-hover);
@@ -524,7 +529,7 @@ td.passCell,.passCell{color:var(--mui-text-disabled);font-size:.75rem}
 }
 .stat>span{display:block;color:var(--mui-text-secondary);font-size:.75rem}
 .stat>b{display:block;font-size:1.5rem;font-weight:600;color:var(--mui-primary-dark);margin-top:2px;line-height:1.3}
-.stat h3{font-size:1rem}
+.stat h3{font-size:1rem;margin:8px 0 10px}
 .stat-row{
   display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px;
   background:var(--mui-paper-soft);border:1px solid var(--mui-divider);
